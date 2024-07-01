@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        input[type="text"] { margin-bottom: 20px; padding: 8px; width: calc(100% - 22px); }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    
+
+    <table id="data-table">
+        <thead>
+            <tr>
+               
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const sheetId = '1AmiLveV5n8EhJKbqQbR3IZSp5TynoqFv_w2iVNH2B4c';
+        const apiKey = 'AIzaSyDhT3l7hQXQSOzOscEk4R7Edz57ec6VF0Q';
+        const range = 'Sheet1!A1:G1000';
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+        let allData = [];
+
+        function fetchData() {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    allData = data.values.slice(1); // Remove header row
+                    displayData(allData);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        function displayData(data) {
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = '';
+            data.forEach(row => {
+                const tableRow = document.createElement('tr');
+                row.forEach(cell => {
+                    const tableCell = document.createElement('td');
+                    tableCell.textContent = cell;
+                    tableRow.appendChild(tableCell);
+                });
+                tableBody.appendChild(tableRow);
+            });
+        }
+
+        function searchNearest() {
+            const manualLat = parseFloat(document.getElementById('manualLat').value);
+            const manualLong = parseFloat(document.getElementById('manualLong').value);
+            if (!isNaN(manualLat) && !isNaN(manualLong)) {
+                const sortedData = sortNearestLocations(manualLat, manualLong);
+                displayData(sortedData);
+            } else {
+                alert('Please enter valid latitude and longitude values.');
+            }
+        }
+
+        function sortNearestLocations(lat, long) {
+            return allData.slice(0) // Create a copy of allData
+                .map(row => ({
+                    data: row,
+                    distance: getDistanceFromLatLonInKm(lat, long, ...row[2].split(',').map(Number))
+                }))
+                .sort((a, b) => a.distance - b.distance)
+                .map(item => item.data);
+        }
+
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the earth in km
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c; // Distance in km
+            return distance;
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180);
+        }
+
+        function printTable() {
+            const printContents = document.getElementById('data-table').outerHTML;
+            const originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload();
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
