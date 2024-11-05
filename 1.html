@@ -2,109 +2,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Customer Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGuru - IT Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        input[type="text"] { margin-bottom: 20px; padding: 8px; width: calc(100% - 22px); }
-        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-right: 10px; }
+        /* General Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Basic styling */
+        body, html {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #1a1a1a;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #111;
+            padding: 15px 20px;
+            color: #fff;
+            font-size: 1.1em;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .navbar a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #25D366;
+        }
+
+        /* Header styling */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('your-background-image.jpg') no-repeat center center/cover; /* Replace with your image URL */
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        .header .btn {
+            background-color: #25D366;
+            color: #fff;
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .header .btn:hover {
+            background-color: #1ebc5d;
+            transform: scale(1.05);
+        }
+
+        /* Trusted clients section */
+        .clients {
+            padding: 40px 20px;
+            background-color: #222;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+        .clients img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            filter: grayscale(100%);
+        }
+        .clients img:hover {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Services section */
+        .services {
+            padding: 40px 20px;
+            background-color: #1a1a1a;
+            color: #ddd;
+        }
+        .services h2 {
+            font-size: 2em;
+            color: #25D366;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .services ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .services li {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .services li i {
+            color: #25D366;
+            font-size: 1.5em;
+        }
+        .services li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* About us section */
+        .about {
+            padding: 40px 20px;
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .about h2 {
+            font-size: 2em;
+            color: #25D366;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    
 
-    <table id="data-table">
-        <thead>
-            <tr>
-               
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div><a href="#">TechGuru</a></div>
+        <div>
+            <a href="tel:+971505609115"><i class="fas fa-phone"></i> +971505609115</a>
+            <a href="mailto:vsadoor1@gmil.com"><i class="fas fa-envelope"></i> vsadoor1@gmil.com</a>
+        </div>
+    </div>
 
-    <script>
-        const sheetId = '1AmiLveV5n8EhJKbqQbR3IZSp5TynoqFv_w2iVNH2B4c';
-        const apiKey = 'AIzaSyDhT3l7hQXQSOzOscEk4R7Edz57ec6VF0Q';
-        const range = 'Sheet1!A1:G1000';
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+    <!-- Header with background image and WhatsApp buttons -->
+    <div class="header">
+        <h1>Welcome to TechGuru</h1>
+        <a href="https://wa.me/971505609115" class="btn">WhatsApp Chat</a>
+        <a href="https://wa.me/971525504531" class="btn">Contact Us on WhatsApp</a><br><br>
+        <h2>Our Truster Clients</h2>
+    </div>
 
-        let allData = [];
+    <!-- Trusted clients section -->
 
-        function fetchData() {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    allData = data.values.slice(1); // Remove header row
-                    displayData(allData);
-                })
-                .catch(error => console.error('Error fetching data:', error));
-        }
+    <div class="clients">
+        <img src="client1.jpg" alt="Client 1">
+        <img src="client2.jpg" alt="Client 2">
+        <img src="client3.jpg" alt="Client 3">
+        <img src="client4.jpg" alt="Client 4">
+        <img src="client5.jpg" alt="Client 5">
+        <img src="client6.jpg" alt="Client 6">
+        <img src="client7.jpg" alt="Client 7">
+        <img src="client8.jpg" alt="Client 8">
+        <img src="client9.jpg" alt="Client 9">
+        <img src="client10.jpg" alt="Client 10">
+        <img src="client11.jpg" alt="Client 11">
+        <img src="client12.jpg" alt="Client 12">
+    </div>
 
-        function displayData(data) {
-            const tableBody = document.querySelector('#data-table tbody');
-            tableBody.innerHTML = '';
-            data.forEach(row => {
-                const tableRow = document.createElement('tr');
-                row.forEach(cell => {
-                    const tableCell = document.createElement('td');
-                    tableCell.textContent = cell;
-                    tableRow.appendChild(tableCell);
-                });
-                tableBody.appendChild(tableRow);
-            });
-        }
+    <!-- Services section -->
+    <div class="services">
+        <h2>Our Services</h2>
+        <ul>
+            <li><i class="fas fa-code"></i> Website Development / Maintenance</li>
+            <li><i class="fas fa-tachometer-alt"></i> System Speedup</li>
+            <li><i class="fas fa-laptop"></i> Laptop / POS Software and Hardware Issues</li>
+            <li><i class="fas fa-video"></i> CCTV Maintenance</li>
+            <li><i class="fas fa-wifi"></i> WiFi Maintenance</li>
+            <li><i class="fas fa-print"></i> Printers / Scanners</li>
+            <li><i class="fas fa-barcode"></i> Barcode Printers / Scanners</li>
+            <li><i class="fas fa-network-wired"></i> Server Cable Works</li>
+            <li><i class="fas fa-shield-alt"></i> Firewall, Router, Meraki</li>
+            <li><i class="fas fa-network-wired"></i> Networking</li>
+        </ul>
+    </div>
 
-        function searchNearest() {
-            const manualLat = parseFloat(document.getElementById('manualLat').value);
-            const manualLong = parseFloat(document.getElementById('manualLong').value);
-            if (!isNaN(manualLat) && !isNaN(manualLong)) {
-                const sortedData = sortNearestLocations(manualLat, manualLong);
-                displayData(sortedData);
-            } else {
-                alert('Please enter valid latitude and longitude values.');
-            }
-        }
+    <!-- About us section -->
+    <div class="about">
+        <h2>About Us</h2>
+        <p>TechGuru is a formation of 25 smart engineers with 5+ years of experience with major companies like Aster DM Healthcare, Life Pharmacy, Hindustan Unilever, Talabat, Etisalat, Lulu Group, Desert Glaciers, Freshco Hypermarket, etc. We hold 500+ happy clients in India and the UAE. Initially started as a technical service provider, we now have our own app development team along with IT services. Overall, we are a complete IT team.</p>
+    </div>
 
-        function sortNearestLocations(lat, long) {
-            return allData.slice(0) // Create a copy of allData
-                .map(row => ({
-                    data: row,
-                    distance: getDistanceFromLatLonInKm(lat, long, ...row[2].split(',').map(Number))
-                }))
-                .sort((a, b) => a.distance - b.distance)
-                .map(item => item.data);
-        }
-
-        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius of the earth in km
-            const dLat = deg2rad(lat2 - lat1);
-            const dLon = deg2rad(lon2 - lon1);
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c; // Distance in km
-            return distance;
-        }
-
-        function deg2rad(deg) {
-            return deg * (Math.PI / 180);
-        }
-
-        function printTable() {
-            const printContents = document.getElementById('data-table').outerHTML;
-            const originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-            window.location.reload();
-        }
-
-        fetchData();
-    </script>
 </body>
 </html>
