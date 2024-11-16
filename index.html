@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechGuru - IT Services</title>
+    <title>VSDEVELOPERS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* General Reset */
@@ -16,8 +16,8 @@
         /* Basic styling */
         body, html {
             font-family: Arial, sans-serif;
-            color: #333;
-            background-color: #1a1a1a;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
         }
 
         /* Navbar styling */
@@ -25,58 +25,63 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #111;
+            background-color: #fff; /* White background */
             padding: 15px 20px;
-            color: #fff;
+            color: #000;
             font-size: 1.1em;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #ccc; /* Light gray border */
         }
         .navbar a {
-            color: #ccc;
+            color: #000; /* Black text */
             text-decoration: none;
             margin: 0 15px;
             transition: color 0.3s ease;
         }
         .navbar a:hover {
-            color: #25D366;
+            color: #f7c600; /* Yellow color on hover */
         }
 
         /* Header styling */
         .header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('your-background-image.jpg') no-repeat center center/cover; /* Replace with your image URL */
+            background-color: #fff; /* White background */
             height: 350px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start; /* Align text to the left */
             justify-content: center;
-            color: #fff;
-            text-align: center;
+            color: #000;
             padding: 20px;
         }
-        .header h1 {
+        .header h2 {
             font-size: 2.5em;
+            
+        }
+        .header p {
+            font-size: 1.2em;
             margin-bottom: 15px;
         }
         .header .btn {
-            background-color: #25D366;
-            color: #fff;
+            background-color: #f7c600; /* Yellow background */
+            color: #000; /* Black text */
             padding: 12px 25px;
-            margin: 10px;
+            margin: 10px 0;
+            
             border-radius: 5px;
             border: none;
             font-size: 1em;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
         }
         .header .btn:hover {
-            background-color: #1ebc5d;
+            background-color: #e6b800; /* Darker yellow on hover */
             transform: scale(1.05);
         }
 
         /* Trusted clients section */
         .clients {
             padding: 40px 20px;
-            background-color: #222;
+            background-color: #fff; /* White background */
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             gap: 15px;
@@ -86,23 +91,21 @@
             height: auto;
             border-radius: 8px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            filter: grayscale(100%);
         }
         .clients img:hover {
             transform: scale(1.1);
-            filter: grayscale(0%);
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         /* Services section */
         .services {
             padding: 40px 20px;
-            background-color: #1a1a1a;
-            color: #ddd;
+            background-color: #fff; /* White background */
+            color: #000;
         }
         .services h2 {
             font-size: 2em;
-            color: #25D366;
+            color: #f7c600; /* Yellow text */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -114,7 +117,7 @@
             gap: 15px;
         }
         .services li {
-            background-color: #333;
+            background-color: #f7f7f7; /* Light gray background */
             padding: 15px;
             border-radius: 8px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -123,7 +126,7 @@
             gap: 10px;
         }
         .services li i {
-            color: #25D366;
+            color: #f7c600; /* Yellow icon */
             font-size: 1.5em;
         }
         .services li:hover {
@@ -134,15 +137,78 @@
         /* About us section */
         .about {
             padding: 40px 20px;
-            background-color: #222;
-            color: #ccc;
+            background-color: #fff; /* White background */
+            color: #000;
             text-align: center;
             line-height: 1.8;
         }
         .about h2 {
             font-size: 2em;
-            color: #25D366;
+            color: #f7c600; /* Yellow text */
             margin-bottom: 20px;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        header {
+            background-color: #0077cc;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        p {
+            font-size: 16px;
+            margin: 15px 0;
+            text-align: center;
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background-color: #f1f9ff;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 5px solid #0077cc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+        li .highlight {
+            color: #0077cc;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            padding-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
+            li {
+                font-size: 14px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -150,25 +216,27 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <div><a href="#">TechGuru</a></div>
+        <div><a href="gallery.html">Gallery</a></div>
         <div>
-            <a href="tel:+971505609115"><i class="fas fa-phone"></i> +971505609115</a>
+            <a href="tel:+971505609115"><i class="fas fa-phone"></i> +971505609115</a><br>
             <a href="tel:+971505609115"><i class="fas fa-phone"></i> +971525504531</a>
-            <a href="mailto:vsadoor1@gmil.com"><i class="fas fa-envelope"></i> techguru.ae@gmail.com</a>
+            
         </div>
     </div>
 
     <!-- Header with background image and WhatsApp buttons -->
-    <div class="header">
-        
+    <div class="header"><center>
+    <h2>VS Developers</h2>
+        <p>"Empowering Tomorrow, One Solution at a Time"</p><br>
         <a href="https://wa.me/971505609115" class="btn">WhatsApp US</a>
         
-        <h2>Our Trusted Clients</h2>
+        
     </div>
 
     <!-- Trusted clients section -->
-
+<center><h3>Our Trusted Clients</h3></center>
     <div class="clients">
+
         <img src="https://www.cmgassets.com/s3fs-public/styles/opengraph/public/2022-10/aster.png?h=84ca56d5&itok=_ZYEop3u" alt="Client 1">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUt1CClL55YWybPuZZpSK-ExkbkrdI5GS_Hw&s" alt="Client 2">
         <img src="https://www.desertglaciers.com/assets/images/logo.png" alt="Client 3">
@@ -199,11 +267,49 @@
             <li><i class="fas fa-network-wired"></i> Networking</li>
         </ul>
     </div>
-
+<div class="container">
+        <header>
+            <h1>Pricing</h1>
+        </header>
+        <p>Affordable IT solutions tailored for your needs. Available for all devices and budgets!</p>
+        <ul>
+            <li>
+                <span class="highlight">Website Development</span>: Static 3-page websites starting at <span class="highlight">99 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">Webpage Maintenance</span>: Starting at <span class="highlight">49 AED per month</span>.
+            </li>
+            <li>
+                <span class="highlight">Offline Retail POS Systems</span>: Starting at <span class="highlight">999 AED</span> (one-time payment).
+            </li>
+            <li>
+                <span class="highlight">Laptop/Desktop/POS Servicing</span>: Starting at <span class="highlight">49 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">Operating System Services</span>: Installation, cloning, imaging, repair, and data recovery starting from <span class="highlight">49 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">Peripheral Installations</span>: Laptop/Desktop/POS printer, scanner, and barcode configurations starting at <span class="highlight">49 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">CCTV Servicing</span>: Starting at <span class="highlight">49 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">Networking Solutions</span>: Router, Access Point (AP), and Extender installations and maintenance starting at <span class="highlight">49 AED</span>.
+            </li>
+            <li>
+                <span class="highlight">Server & Cabling Services</span>: Crimping, cable rearrangement, and related tasks starting at <span class="highlight">40 AED per point</span>.
+            </li>
+        </ul>
+        <footer>
+            Contact us now to book your service or for any inquiries!<br>
+            <em>Reliable IT solutions at unbeatable prices.</em>
+        </footer>
+    </div>
     <!-- About us section -->
     <div class="about">
         <h2>About Us</h2>
-        <p>TechGuru is a formation of 7 smart engineers with 5+ years of experience with major companies like Aster DM Healthcare, Life Pharmacy, Hindustan Unilever, Talabat, Etisalat, Lulu Group, Desert Glaciers, Freshco Hypermarket, etc. We hold 500+ happy clients in India and the UAE. Initially started as a technical service provider, we now have our own app development team along with IT services. Overall, we are a complete IT team.</p>
+        <p>vsdevelopers is a formation of 7 smart engineers with 5+ years of experience with major companies like Aster DM Healthcare, Life Pharmacy, Hindustan Unilever, Talabat, Etisalat, Lulu Group, Desert Glaciers, Freshco Hypermarket, etc. We hold 500+ happy clients in India and the UAE. Initially started as a technical service provider, we now have our own app development team along with IT services. Overall, we are a complete IT team.</p>
     </div>
 
 </body>
