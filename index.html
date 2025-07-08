@@ -98,15 +98,23 @@
 <body>
 
   <header>
+  <div style="text-align: center; margin: 20px 0;">
+  <img src="https://nrinews24x7.com/wp-content/uploads/2024/07/AsterPharmacy.jpg" 
+       alt="Aster Pharmacy CSR Image"
+       style="width:10mm; height:10mm; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+</div>
     <h1>🖨️ Oridix Code to Sticker Generator</h1>
   </header>
 
   <main>
-    <textarea id="zplInput" placeholder="Paste your ZPL code here..."></textarea>
+    <textarea id="zplInput" placeholder="Paste your oridix code here..."></textarea>
 
     <div class="buttons">
       <button onclick="shiftRight()">↔️ Fix alignment</button>
       <button onclick="convertZPL()">🎯 Generate Sticker</button>
+      <a id="downloadLink" href="#" download="label.pdf" style="display:none;">
+        <button>⬇️ Download PDF</button>
+      </a>
       <button onclick="printPDF()" id="printButton" style="display:none;">🖨️ Print PDF</button>
     </div>
 
