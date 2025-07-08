@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Aster Pharmacy</title>
+  <title>ZPL to Sticker generator</title>
   <style>
     * {
       box-sizing: border-box;
@@ -98,11 +98,7 @@
 <body>
 
   <header>
-  <div style="text-align: center; margin: 20px 0;">
-  <img src="https://nrinews24x7.com/wp-content/uploads/2024/07/AsterPharmacy.jpg" 
-       alt="Aster Pharmacy CSR Image"
-       style="width:10mm; height:10mm; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-</div>
+  
     <h1>🖨️ Oridix Code to Sticker Generator</h1>
   </header>
 
@@ -126,51 +122,60 @@
   </footer>
 
   <script>
-    let pdfUrl = "";
+  let pdfUrl = "";
+  let alignmentUsed = false;
 
-    function convertZPL() {
-      const zpl = document.getElementById("zplInput").value;
+  function convertZPL() {
+    const zpl = document.getElementById("zplInput").value;
 
-      fetch(`https://api.labelary.com/v1/printers/8dpmm/labels/1.5x1/0/`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/pdf",
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: zpl
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("PDF conversion failed");
-        return response.blob();
-      })
-      .then(blob => {
-        pdfUrl = URL.createObjectURL(blob);
-        const iframe = document.getElementById("pdfPreview");
-        iframe.src = pdfUrl;
-        iframe.style.display = "block";
+    fetch(`https://api.labelary.com/v1/printers/8dpmm/labels/1.5x1/0/`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/pdf",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: zpl
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("PDF conversion failed");
+      return response.blob();
+    })
+    .then(blob => {
+      pdfUrl = URL.createObjectURL(blob);
+      const iframe = document.getElementById("pdfPreview");
+      iframe.src = pdfUrl;
+      iframe.style.display = "block";
 
-        document.getElementById("downloadLink").href = pdfUrl;
-        document.getElementById("downloadLink").style.display = "inline";
-        document.getElementById("printButton").style.display = "inline";
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-      });
-    }
+      document.getElementById("downloadLink").href = pdfUrl;
+      document.getElementById("downloadLink").style.display = "inline";
+      document.getElementById("printButton").style.display = "inline";
+    })
+    .catch(error => {
+      alert("Error: " + error.message);
+    });
+  }
 
-    function printPDF() {
-      const win = window.open(pdfUrl, '_blank');
-      win.focus();
-      win.print();
-    }
+  function printPDF() {
+    const win = window.open(pdfUrl, '_blank');
+    win.focus();
+    win.print();
+  }
 
-    function shiftRight() {
-      const textarea = document.getElementById("zplInput");
-      let zplText = textarea.value;
-      zplText = zplText.replace(/(\^LH)\d+,\d+/i, "^LH12,0\n^LT12");
-      textarea.value = zplText;
-    }
-  </script>
+  function shiftRight() {
+    if (alignmentUsed) return; // Prevent reuse without refresh
+
+    const textarea = document.getElementById("zplInput");
+    let zplText = textarea.value;
+    zplText = zplText.replace(/(\^LH)\d+,\d+/i, "^LH12,0\n^LT12");
+    textarea.value = zplText;
+
+    alignmentUsed = true;
+    const btn = document.querySelector("button[onclick='shiftRight()']");
+    btn.disabled = true;
+    btn.style.opacity = 0.6;
+    btn.textContent = "✅ Alignment Done";
+  }
+</script>
 
 </body>
 </html>
