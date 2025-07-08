@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aster Pharmacy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      background: #fff;
+      resize: vertical;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      background: #2575fc;
+      color: white;
+      padding: 10px 18px;
+      margin: 6px 10px 6px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background: #1a5ed8;
+      transform: translateY(-2px);
+    }
+
+    a button {
+      background: #34a853;
+    }
+
+    a button:hover {
+      background: #2c8b45;
+    }
+
+    iframe {
+      display: none;
+      width: 100%;
+      height: 420px;
+      border: 1px solid #aaa;
+      margin-top: 30px;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin: 50px 0 20px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🖨️ Oridix Code to Sticker Generator</h1>
+  </header>
+
+  <main>
+    <textarea id="zplInput" placeholder="Paste your ZPL code here..."></textarea>
+
+    <div class="buttons">
+      <button onclick="shiftRight()">↔️ Fix alignment</button>
+      <button onclick="convertZPL()">🎯 Generate Sticker</button>
+      <button onclick="printPDF()" id="printButton" style="display:none;">🖨️ Print PDF</button>
+    </div>
+
+    <iframe id="pdfPreview"></iframe>
+  </main>
+
+  <footer>
+    For support: <a href="mailto:vishnu.saji@asterpharmacy.com">vishnu.saji@asterpharmacy.com</a>
+  </footer>
+
+  <script>
+    let pdfUrl = "";
+
+    function convertZPL() {
+      const zpl = document.getElementById("zplInput").value;
+
+      fetch(`https://api.labelary.com/v1/printers/8dpmm/labels/1.5x1/0/`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/pdf",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: zpl
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("PDF conversion failed");
+        return response.blob();
+      })
+      .then(blob => {
+        pdfUrl = URL.createObjectURL(blob);
+        const iframe = document.getElementById("pdfPreview");
+        iframe.src = pdfUrl;
+        iframe.style.display = "block";
+
+        document.getElementById("downloadLink").href = pdfUrl;
+        document.getElementById("downloadLink").style.display = "inline";
+        document.getElementById("printButton").style.display = "inline";
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+    }
+
+    function printPDF() {
+      const win = window.open(pdfUrl, '_blank');
+      win.focus();
+      win.print();
+    }
+
+    function shiftRight() {
+      const textarea = document.getElementById("zplInput");
+      let zplText = textarea.value;
+      zplText = zplText.replace(/(\^LH)\d+,\d+/i, "^LH12,0\n^LT12");
+      textarea.value = zplText;
+    }
+  </script>
+
+</body>
+</html>
