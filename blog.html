@@ -3,54 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Asset Inventory - Login</title>
+  <title>vishnu-Asset Inventory - Login</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f7f9fc;
-      padding: 40px;
+      padding: 10px;
       color: #333;
+      font-size: 13px;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 100%;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 15px;
+      font-size: 16px;
       color: #2c3e50;
     }
 
     label {
       display: block;
-      margin: 15px 0 5px;
+      margin-top: 10px;
+      margin-bottom: 3px;
       font-weight: bold;
+      font-size: 13px;
     }
 
     input[type="text"],
     input[type="password"],
     input[type="number"] {
-      padding: 10px;
+      padding: 6px;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      border-radius: 5px;
       width: 100%;
+      font-size: 13px;
       box-sizing: border-box;
     }
 
     button {
-      padding: 10px 20px;
-      margin-top: 15px;
+      padding: 8px 12px;
+      margin-top: 10px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       background-color: #2e86de;
       color: white;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -61,20 +66,19 @@
 
     table {
       width: 100%;
-      margin-top: 25px;
+      margin-top: 15px;
       border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 6px;
+      text-align: left;
     }
 
     th {
       background-color: #2e86de;
       color: white;
-      padding: 10px;
-      text-align: left;
-    }
-
-    td {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
     }
 
     tr:nth-child(even) {
@@ -83,6 +87,7 @@
 
     .button-group {
       text-align: right;
+      margin-top: 10px;
     }
 
     .hidden {
@@ -91,7 +96,33 @@
 
     .error {
       color: red;
-      margin-top: 10px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    @media screen and (max-width: 600px) {
+      th, td {
+        font-size: 11px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="number"] {
+        font-size: 12px;
+      }
+
+      .button-group {
+        text-align: center;
+      }
+
+      .container {
+        padding: 10px;
+      }
     }
   </style>
 </head>
@@ -102,10 +133,8 @@
     <h2>Login</h2>
     <label>Username</label>
     <input type="text" id="username" />
-
     <label>Password</label>
     <input type="password" id="password" />
-
     <button onclick="login()">Login</button>
     <div class="error" id="loginError"></div>
   </div>
@@ -113,35 +142,35 @@
   <!-- Asset Form Section -->
   <div class="container hidden" id="formSection">
     <h2>On site asset entry</h2>
-
     <label>Store Code</label>
     <input type="number" id="storeCode" required />
-
     <label>Store Name</label>
     <input type="text" id="storeName" required />
 
     <table id="assetTable">
       <thead>
         <tr>
-          <th>Item Name</th>
+          <th>Item</th>
           <th>Model</th>
-          <th>Serial Number</th>
+          <th>Serial</th>
+          <th>Qty</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="assetBody">
         <tr>
-          <td><input type="text" class="assetName" required></td>
-          <td><input type="text" class="modelName" required></td>
-          <td><input type="text" class="serialNumber" required></td>
-          <td><button onclick="removeRow(this)">Remove</button></td>
+          <td><input type="text" class="assetName"></td>
+          <td><input type="text" class="modelName"></td>
+          <td><input type="text" class="serialNumber"></td>
+          <td><input type="number" class="quantity" min="0" value="0"></td>
+          <td><button onclick="removeRow(this)">❌</button></td>
         </tr>
       </tbody>
     </table>
 
     <div class="button-group">
-      <button onclick="addRow()">Add Another Asset</button>
-      <button onclick="saveData()">Save as JSON</button>
+      <button onclick="addRow()">➕ Add Asset</button>
+      <button onclick="saveData()">💾 Save JSON</button>
     </div>
   </div>
 
@@ -155,12 +184,12 @@
     let loggedInUser = "";
 
     function login() {
-      const usernameInput = document.getElementById("username").value.trim();
-      const passwordInput = document.getElementById("password").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
       const errorDiv = document.getElementById("loginError");
 
-      if (users[usernameInput] && users[usernameInput] === passwordInput) {
-        loggedInUser = usernameInput;
+      if (users[username] && users[username] === password) {
+        loggedInUser = username;
         document.getElementById("loginSection").classList.add("hidden");
         document.getElementById("formSection").classList.remove("hidden");
       } else {
@@ -172,10 +201,11 @@
       const tbody = document.getElementById('assetBody');
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td><input type="text" class="assetName" required></td>
-        <td><input type="text" class="modelName" required></td>
-        <td><input type="text" class="serialNumber" required></td>
-        <td><button onclick="removeRow(this)">Remove</button></td>
+        <td><input type="text" class="assetName"></td>
+        <td><input type="text" class="modelName"></td>
+        <td><input type="text" class="serialNumber"></td>
+        <td><input type="number" class="quantity" min="1" value="1"></td>
+        <td><button onclick="removeRow(this)">❌</button></td>
       `;
       tbody.appendChild(row);
     }
@@ -198,17 +228,21 @@
       const assetNames = document.querySelectorAll('.assetName');
       const modelNames = document.querySelectorAll('.modelName');
       const serialNumbers = document.querySelectorAll('.serialNumber');
+      const quantities = document.querySelectorAll('.quantity');
 
       for (let i = 0; i < assetNames.length; i++) {
         const asset = assetNames[i].value.trim();
         const model = modelNames[i].value.trim();
         const serial = serialNumbers[i].value.trim();
+        let qty = quantities[i].value.trim();
 
-        if (asset && model && serial) {
+        if (asset) {
+          qty = qty === "" ? "1" : qty;
           assets.push({
             itemName: asset,
             model: model,
-            serialNumber: serial
+            serialNumber: serial,
+            quantity: parseInt(qty) || 1
           });
         }
       }
@@ -228,6 +262,5 @@
       a.click();
     }
   </script>
-
 </body>
 </html>
