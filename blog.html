@@ -115,24 +115,31 @@
   <h3>Asset Entry</h3>
   <a href="dashboard.html" target="_blank">📊 View Dashboard</a>
 
-  <!-- Top Section -->
+  <!-- Top Fields -->
   <div class="top-fields">
-    <input type="text" id="storeCode" placeholder="Store Code" required>
-    <input type="text" id="storeName" placeholder="Store Name" required>
-    <input type="text" id="engineerName" value="" placeholder="Engineer Name" required>
+    <input type="text" id="storeCode" placeholder="Store Code" list="storeCodeList" required>
+    <input type="text" id="storeName" placeholder="Store Name" list="storeNameList" required>
+    <input type="text" id="engineerName" placeholder="Engineer Name" list="engineerList" required>
   </div>
 
   <!-- Asset Rows -->
   <div id="formContainer">
     <div class="row">
-      <input type="text" name="item" placeholder="Item" required>
-      <input type="text" name="model" placeholder="Model" required>
+      <input list="itemList" type="text" name="item" placeholder="Item" required>
+      <input list="modelList" type="text" name="model" placeholder="Model" required>
       <input type="number" name="qty" placeholder="Qty" value="1" required>
       <input type="text" name="serial" placeholder="Serial Number" required>
       <input type="text" name="status" placeholder="Status" value="working" required>
       <button class="remove-btn" onclick="removeRow(this)">Delete column</button>
     </div>
   </div>
+
+  <!-- Datalists -->
+  <datalist id="itemList"></datalist>
+  <datalist id="modelList"></datalist>
+  <datalist id="storeCodeList"></datalist>
+  <datalist id="storeNameList"></datalist>
+  <datalist id="engineerList"></datalist>
 
   <!-- Action Buttons -->
   <div class="button-row">
@@ -141,16 +148,51 @@
   </div>
 
   <script>
+    const apiURL = "https://script.google.com/macros/s/AKfycbz1DLo9e2GhmZWebl67i-IXqyQX0Fack4Fz8OkhEja-rbCXNG7KxAqizk0ztbRKMxp3Yg/exec";
+
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(row => {
+          if (row[0]) {
+            const opt = document.createElement("option");
+            opt.value = row[0];
+            itemList.appendChild(opt);
+          }
+          if (row[1]) {
+            const opt = document.createElement("option");
+            opt.value = row[1];
+            modelList.appendChild(opt);
+          }
+          if (row[2]) {
+            const opt = document.createElement("option");
+            opt.value = row[2];
+            storeCodeList.appendChild(opt);
+          }
+          if (row[3]) {
+            const opt = document.createElement("option");
+            opt.value = row[3];
+            storeNameList.appendChild(opt);
+          }
+          if (row[4]) {
+            const opt = document.createElement("option");
+            opt.value = row[4];
+            engineerList.appendChild(opt);
+          }
+        });
+      })
+      .catch(err => console.error("Error loading lists:", err));
+
     function addRow() {
       const container = document.getElementById("formContainer");
       const row = document.createElement("div");
       row.className = "row";
       row.innerHTML = `
-        <input type="text" name="item" placeholder="Item" required>
-        <input type="text" name="model" placeholder="Model" required>
+        <input list="itemList" type="text" name="item" placeholder="Item" required>
+        <input list="modelList" type="text" name="model" placeholder="Model" required>
         <input type="number" name="qty" placeholder="Qty" value="1" required>
         <input type="text" name="serial" placeholder="Serial Number" required>
-        <input type="text" name="status" placeholder="Status" value="Working"required>
+        <input type="text" name="status" placeholder="Status" value="working" required>
         <button class="remove-btn" onclick="removeRow(this)">Delete column</button>
       `;
       container.appendChild(row);
@@ -196,6 +238,5 @@
       }, 1500);
     }
   </script>
-
 </body>
 </html>
